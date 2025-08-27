@@ -71,7 +71,7 @@ void bsp_finish_booting(void)
   cycles_accounting_init();
 
   if (boot_cpu_init_timer(system_hz)) {
-	  panic("FATAL : failed to initialize timer interrupts, "
+	  panic("ERROR FATAL : failed to initialize timer interrupts, "
 			  "cannot continue without any clock source!");
   }
 
@@ -136,7 +136,7 @@ void kmain(kinfo_t *local_cbi)
   arch_ser_init();
 #endif
   /* We can talk now */
-  DEBUGBASIC(("MINIX booting\n"));
+  DEBUGBASIC(("WINCHAIN booting\n"));
 
   /* Kernel may use bits of main memory before VM is started */
   kernel_may_alloc = 1;
@@ -342,7 +342,7 @@ static void announce(void)
 #endif
       "Copyright 2016, Vrije Universiteit, Amsterdam, The Netherlands\n",
       OS_RELEASE);
-  printf("MINIX is open source software, see http://www.minix3.org\n");
+  printf("Winchain is open source software, see http://www.minix3.org\n");
 }
 
 /*===========================================================================*
@@ -357,7 +357,7 @@ void prepare_shutdown(const int how)
    * do shutdown work.  Set a watchog timer to call shutdown(). The timer 
    * argument passes the shutdown status. 
    */
-  printf("MINIX will now be shut down ...\n");
+  printf("Winchain will now be shut down ...\n");
   set_kernel_timer(&shutdown_timer, get_monotonic() + system_hz,
       minix_shutdown, how);
 }
@@ -388,12 +388,12 @@ void minix_shutdown(int how)
   /* Show shutdown message */
   direct_cls();
   if((how & RB_POWERDOWN) == RB_POWERDOWN)
-	direct_print("MINIX has halted and will now power off.\n");
+	direct_print("Winchain has halted and will now power off.\n");
   else if(how & RB_HALT)
-	direct_print("MINIX has halted. "
+	direct_print("Winchain has halted. "
 		     "It is safe to turn off your computer.\n");
   else
-	direct_print("MINIX will now reset.\n");
+	direct_print("Winchain will now reset.\n");
   arch_shutdown(how);
 }
 
@@ -519,4 +519,3 @@ int is_fpu(void)
 {
         return get_cpulocal_var(fpu_presence);
 }
-
